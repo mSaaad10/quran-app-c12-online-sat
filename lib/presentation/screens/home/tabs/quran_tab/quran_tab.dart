@@ -255,8 +255,11 @@ class QuranTab extends StatelessWidget {
                 color: Theme.of(context).dividerColor,
               ),
               itemBuilder: (context, index) => QuranItemWidget(
-                  suraName: suraNames[index],
-                  versesNumber: versesNumber[index].toString()),
+                suraItem: SuraItem(
+                    suraName: suraNames[index],
+                    versesNumber: versesNumber[index].toString(),
+                    index: index),
+              ),
               itemCount: suraNames.length,
             ),
           )
@@ -264,4 +267,15 @@ class QuranTab extends StatelessWidget {
       ),
     );
   }
+}
+
+class SuraItem {
+  String suraName;
+  String versesNumber;
+  int index;
+
+  SuraItem(
+      {required this.suraName,
+      required this.versesNumber,
+      required this.index});
 }
