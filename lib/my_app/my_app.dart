@@ -13,7 +13,6 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       theme: MyTheme.lightTheme,
       themeMode: ThemeMode.light,
-      debugShowCheckedModeBanner: false,
       routes: {
         RoutesManager.splashRoute: (_) => SplashScreen(),
         RoutesManager.homeRoute: (_) => HomeScreen(),
