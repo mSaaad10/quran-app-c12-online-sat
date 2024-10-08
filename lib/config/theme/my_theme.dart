@@ -21,7 +21,7 @@ class MyTheme {
       ),
       cardTheme: CardTheme(
         margin: EdgeInsets.symmetric(horizontal: 8, vertical: 6),
-        color: ColorsManager.goldColor,
+        color: ColorsManager.goldColor.withOpacity(0.7),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
         elevation: 14,
       ),
