@@ -6,6 +6,6 @@ class AssetsManager {
   static const String hadithIcon = '${base}hadith_icon.png';
   static const String tasbehIcon = '${base}sebha_icon.png';
   static const String radioIcon = '${base}radio_icon.png';
-  static const String sebhaBody = '${base}sebhaHead.png';
+  static const String sebhaBody = '${base}sebhaBody.png';
 
 }
