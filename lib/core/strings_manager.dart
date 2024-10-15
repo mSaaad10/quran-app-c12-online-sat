@@ -1,5 +1,5 @@
 class StringsManager {
-  static const String appTitle = 'Quran';
+  static const String appTitle = 'Islami';
   static const String quranLabel = 'Quran';
   static const String hadithLabel = 'Hadith';
   static const String sebhaLabel = 'Sebha';
