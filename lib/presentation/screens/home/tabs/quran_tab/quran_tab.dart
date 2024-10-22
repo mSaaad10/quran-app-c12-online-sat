@@ -241,7 +241,8 @@ class QuranTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return Directionality(
+      textDirection: TextDirection.ltr,
       child: Column(
         children: [
           Expanded(flex: 1, child: Image.asset(AssetsManager.quranHeaderImage)),

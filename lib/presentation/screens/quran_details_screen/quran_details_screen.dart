@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
 import 'package:quran_app_c12_online_ast/presentation/screens/home/tabs/quran_tab/quran_tab.dart';
 import 'package:quran_app_c12_online_ast/presentation/screens/quran_details_screen/widgets/sura_verses_widget.dart';
+import 'package:quran_app_c12_online_ast/providers/quran_provider.dart';
+import 'package:quran_app_c12_online_ast/providers/theme_provider.dart';
 
 import '../../../core/assets_manager.dart';
 
@@ -13,31 +15,36 @@ class QuranDetailsScreen extends StatefulWidget {
 }
 
 class _QuranDetailsScreenState extends State<QuranDetailsScreen> {
-  List<String> verses = [];
+  //List<String> verses = [];
 
   @override
   Widget build(BuildContext context) {
+    ThemeProvider themeProvider = Provider.of<ThemeProvider>(context);
+    var quranProvider = Provider.of<QuranProvider>(context);
     SuraItem suraItem = ModalRoute.of(context)?.settings.arguments as SuraItem;
-    if (verses.isEmpty) readQuranFile(suraItem.index + 1); // non blocking // 1
+    if (quranProvider.verses.isEmpty)
+      quranProvider.readQuranFile(suraItem.index + 1); // non blocking // 1
     return Container(
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
           image: DecorationImage(
               fit: BoxFit.fill,
               image: AssetImage(
-                AssetsManager.lightMainBg,
+                themeProvider.isLightTheme()
+                    ? AssetsManager.lightMainBg
+                    : AssetsManager.darkMainBg,
               ))),
       child: Scaffold(
           appBar: AppBar(
             title: Text(suraItem.suraName),
           ),
-          body: verses.isEmpty
+          body: quranProvider.verses.isEmpty
               ? Center(
                   child: CircularProgressIndicator(),
                 )
               : ListView.builder(
                   itemBuilder: (context, index) =>
-                      SuraVersesWidget(verse: verses[index]),
-                  itemCount: verses.length,
+                      SuraVersesWidget(verse: quranProvider.verses[index]),
+                  itemCount: quranProvider.verses.length,
                 )),
     );
   }
@@ -46,15 +53,5 @@ class _QuranDetailsScreenState extends State<QuranDetailsScreen> {
     return n1 + n2; // 420
   }
 
-  void readQuranFile(int index) async {
-    // read file
-    // 2 mins
-    String fileContent = await rootBundle.loadString('assets/files/$index.txt');
-    verses = fileContent.trim().split('\n'); // verses is not empty
 
-    // verses.forEach((element) {
-    //   print(element);
-    // },);
-    setState(() {});
-  }
 }

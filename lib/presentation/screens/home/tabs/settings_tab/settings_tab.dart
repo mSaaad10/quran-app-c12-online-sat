@@ -1,20 +1,27 @@
 import 'package:flutter/material.dart';
-import 'package:quran_app_c12_online_ast/core/colors_manager.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:provider/provider.dart';
 import 'package:quran_app_c12_online_ast/presentation/screens/home/tabs/settings_tab/widgets/language_bottom_sheet.dart';
 import 'package:quran_app_c12_online_ast/presentation/screens/home/tabs/settings_tab/widgets/theme_bottom_sheet.dart';
+import 'package:quran_app_c12_online_ast/providers/language_provider.dart';
+import 'package:quran_app_c12_online_ast/providers/theme_provider.dart';
 
 class SettingsTab extends StatelessWidget {
-  const SettingsTab({super.key});
+  SettingsTab({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
+    var themeProvider = Provider.of<ThemeProvider>(context);
+    var langProvider = Provider.of<LanguageProvider>(context);
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Text(
-            'Theme',
+            AppLocalizations.of(context)!.theme,
             style: Theme.of(context).textTheme.headlineMedium,
           ),
           const SizedBox(
@@ -28,10 +35,12 @@ class SettingsTab extends StatelessWidget {
                 padding: EdgeInsets.symmetric(horizontal: 4, vertical: 6),
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(8),
-                    border:
-                        Border.all(color: ColorsManager.goldColor, width: 2)),
+                    border: Border.all(
+                        color: Theme.of(context).dividerColor, width: 2)),
                 child: Text(
-                  'Light',
+                  themeProvider.isLightTheme()
+                      ? AppLocalizations.of(context)!.light
+                      : AppLocalizations.of(context)!.dark,
                   style: Theme.of(context).textTheme.headlineSmall,
                 )),
           ),
@@ -39,7 +48,7 @@ class SettingsTab extends StatelessWidget {
             height: 8,
           ),
           Text(
-            'Language',
+            AppLocalizations.of(context)!.language,
             style: Theme.of(context).textTheme.headlineMedium,
           ),
           const SizedBox(
@@ -53,10 +62,10 @@ class SettingsTab extends StatelessWidget {
                 padding: EdgeInsets.symmetric(horizontal: 4, vertical: 6),
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(8),
-                    border:
-                        Border.all(color: ColorsManager.goldColor, width: 2)),
+                    border: Border.all(
+                        color: Theme.of(context).dividerColor, width: 2)),
                 child: Text(
-                  'English',
+                  langProvider.currentLang == 'en' ? "English" : "العربيه",
                   style: Theme.of(context).textTheme.headlineSmall,
                 )),
           ),
